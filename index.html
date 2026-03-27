@@ -231,6 +231,8 @@ pointer-events:none;
 
 <canvas id="confettiCanvas"></canvas>
 
+<audio id="bgm" src="song.mp3" loop></audio>
+
 <div id="app">
 
 <!-- welcome -->
@@ -277,7 +279,7 @@ Points: <span id="score">0</span> / 5
 <!-- final -->
 <section class="card">
 
-<h1> Our Love Journey</h1>
+<h1>Antara ama dan aidil</h1>
 
 <div class="lovebox">
 <div class="timer-title">TIME WITH YOU</div>
@@ -301,30 +303,36 @@ Tap to reveal our memory
    SLIDE NAVIGATION
 ================================================= */
 
-const cards = document.querySelectorAll('.card');
-let page = 0;
+const cards=document.querySelectorAll('.card');
+let page=0;
+const music=document.getElementById("bgm");
+music.volume=0.4;
+let musicStarted=false;
 
 function show(){
-    cards.forEach(c => c.classList.remove('active'));
-    cards[page].classList.add('active');
-
-    if(page === 3) startTimer();
+cards.forEach(c=>c.classList.remove('active'));
+cards[page].classList.add('active');
+if(page===3)startTimer();
 }
 
 function next(){
-    page++;
-    show();
+page++;
 
-    if(page === 2) loadQuestion();
+if(page===1 && !musicStarted){
+music.play();
+musicStarted=true;
 }
 
+show();
+if(page===2)loadQuestion();
+}
 
 /* =================================================
    PIN SYSTEM
 ================================================= */
 
 let pinInput = '';
-const correctPin = '2603';
+const correctPin = '0109';
 const pinDisplay = document.getElementById("pin");
 
 function renderDots(){
@@ -372,11 +380,9 @@ function checkPin(){
 ================================================= */
 
 const questions=[
-{q:"Kapan sih kita pertama ketemu?", options:["26 mar","17 agustus","18 feb"],correct:2},
-{q:"Siapa yang cintanya lebih besar?", options:["aku","jokowi","both"],correct:2},
-{q:"Kenapa kita pacaran?", options:["karena cinta","karena bakso itu bulat","karena prabowo cinta sawit"],correct:0},
-{q:"siapa yang paling alay?", options:["furab","hawson","bahlil"],correct:1},
-{q:"Kenapa aku sayang kamu? ", options:["karena aku wni","karena aku tinggi","karena aku hawson"],correct:2}
+{q:"Kapan tanggal lahir ama?", options:["26","25","27"],correct:2},
+{q:"Hal yang gak boleh Aidil lakuin?", options:["main game sama ama","selingkuh","kirim konten furab"],correct:1},
+{q:"Siapa wanita favorit Aidil?", options:["Della","Ama","Fuji"],correct:1}
 ];
 
 let currentQ = 0;
@@ -441,7 +447,7 @@ function checkAnswer(i,btn){
 
 function startTimer(){
 
-    const start = new Date("2025-02-18T00:00:00");
+    const start = new Date("2025-09-01T00:00:00");
 
     setInterval(()=>{
 
@@ -475,7 +481,7 @@ function revealMemory(el){
     `;
 
     const text = `
-    sayang, ketemu kamu itu beneran bikin aku bersyukur, aku gatau lagi kalau tahun lalu aku gak ketemu kamu, gak kenal sama orang kayak kamu... mungkin aja aku bakalan jadi orang ter galau di bumi?¿ *asli bos gabohong*
+    sayang, ketemu kamu itu beneran bikin aku bersyukur, aku gatau lagi kalau tahun lalu aku gak ketemu kamu, gak kenal sama orang kayak kamu... mungkin aja aku bakalan jadi orang ter galau di bumi? *asli bos gabohong*
 
 aku bener-bener berterimakasih atas semua yang kamu kasih ke aku, kasih sayangnya kamu, waktunya kamu, cintanya kamu, atensinya kamu, dan semua muanya. 
 
